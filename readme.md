@@ -5,7 +5,7 @@ transmorgriPY
 *NEEDS [cnh.cbz](http://thekindlyone.scribblehead.info/cnh.cbz).*
 Download and keep in script directory.
 
-Full Text offline search engine for all [Calvin and Hobbes](http://en.wikipedia.org/wiki/Calvin_and_Hobbes) strip.
+Full Text offline search engine for all [Calvin and Hobbes](http://en.wikipedia.org/wiki/Calvin_and_Hobbes) strips.
 
 Dependencies
 -----------------
