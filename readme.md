@@ -1,6 +1,6 @@
 transmorgriPY
 ================================
-![Screenshot](./3.jpg "Screenshot")
+![Screenshot](./3.JPG "Screenshot")
 
 *NEEDS [cnh.cbz](http://thekindlyone.scribblehead.info/cnh.cbz).*
 Download and keep in script directory.
