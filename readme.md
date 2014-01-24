@@ -13,4 +13,4 @@ Dependencies
 * [whoosh](https://pypi.python.org/pypi/Whoosh/)
 
 
-[Transcripts](http://www.scribd.com/doc/6749712/Calvin-Quotes)
+Transcripts obtained from [here](http://www.scribd.com/doc/6749712/Calvin-Quotes)
