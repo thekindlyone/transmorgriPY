@@ -175,7 +175,7 @@ if __name__ == "__main__":
     frame.Center()
     panel = gui(frame)
     if not os.path.exists(panel.td):
-        os.makedirs(d)
+        os.makedirs(panel.td)
     frame.Bind(wx.EVT_CLOSE, OnClose)
     menuBar = wx.MenuBar()
     menu = wx.Menu()
