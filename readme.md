@@ -6,7 +6,7 @@ transmorgriPY
 
 cnh.cbz is just a renamed zip. Can be read like a comic book using [Comix](http://comix.sourceforge.net/) on linux ,[CDisplay](http://www.cdisplay.me/) on Windows and [YACreader](http://www.yacreader.com/downloads) on Mac
 
-Download and keep in script/exe directory.
+Download and keep in script/exe directory. On run if it doesn't find the file it will attempt to download it for you.
 
 
 Full Text offline search engine for all [Calvin and Hobbes](http://en.wikipedia.org/wiki/Calvin_and_Hobbes) strips.

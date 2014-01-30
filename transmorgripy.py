@@ -8,8 +8,58 @@ import zipfile
 import os
 import sys
 import shutil
+import urllib
 
 aboutText = """<p>transmorgiPY by Aritra Das. <br>contact: dodo.dodder@gmail.com <br><a href="https://github.com/thekindlyone/transmorgriPY">project github</a></p>"""
+
+def download(url, dest):
+    max = 2000
+    dlg = wx.ProgressDialog("Download Progress",
+                       "Please wait...",
+                           maximum=max,
+                           style = wx.PD_CAN_ABORT
+                            | wx.PD_APP_MODAL
+                            | wx.PD_ELAPSED_TIME
+                            | wx.PD_ESTIMATED_TIME
+                            )
+    dlg.Update(0, "Please Wait...")
+    fURL = urllib.urlopen(url)
+    header = fURL.info()
+    size = None    
+    outFile = open(dest, 'wb')
+    keepGoing = True
+    if "Content-Length" in header:
+        size = int(header["Content-Length"])
+        kBytes = size/1024
+        downloadBytes = size/max
+        count = 0
+        while keepGoing:
+            count += 1
+            if count >= max:
+                count  = max-1
+            done=(count*downloadBytes/1024)
+            percentage='%.2f' %((done*100.0)/kBytes)
+            
+            (keepGoing, skip) = dlg.Update(count, "Downloaded "+str(done)+
+                                                  " of "+ str(kBytes)+"KB  "+percentage+"% done")
+            b = fURL.read(downloadBytes)
+            if b:
+                outFile.write(b)
+            else:
+                break
+    else:
+            while keepGoing:
+                (keepGoing, skip) = dlg.UpdatePulse()
+                b = fURL.read(1024*8)
+                if b:
+                    outFile.write(b)
+                else:
+                    break
+    outFile.close()
+
+    dlg.Update(99, "Downloaded "+ str(os.path.getsize(dest)/1024)+"KB")
+    dlg.Destroy()
+    return keepGoing
 
 class HtmlWindow(wx.html.HtmlWindow):
     def __init__(self, parent, id, size=(600,400)):
@@ -156,7 +206,9 @@ class gui(wx.Panel):
         if self.imageFile:
             saveFileDialog = wx.FileDialog(self, "Save As", self.directory, "", "jpeg files (*.jpg)|*.jpg", wx.FD_SAVE | wx.FD_OVERWRITE_PROMPT)
             saveFileDialog.ShowModal()
-            shutil.copyfile(self.imageFile,saveFileDialog.GetPath())
+            location=saveFileDialog.GetPath()
+            if location :
+                shutil.copyfile(self.imageFile,location)
             saveFileDialog.Destroy()
         
 
@@ -174,8 +226,16 @@ if __name__ == "__main__":
     
     frame.Center()
     panel = gui(frame)
+    url= 'http://thekindlyone.scribblehead.info/cnh.cbz'
     if not os.path.exists(panel.td):
         os.makedirs(panel.td)
+    if not os.path.exists(os.path.join(os.getcwd(),'cnh.cbz')):
+        print "Transmorgripy needs cnh.cbz to work. Downloading"
+        success=download(url,'cnh.cbz')
+        if not success:
+            print "You really need the file. Bye Bye."
+            os.remove(os.path.join(os.getcwd(),'cnh.cbz'))
+            sys.exit()
     frame.Bind(wx.EVT_CLOSE, OnClose)
     menuBar = wx.MenuBar()
     menu = wx.Menu()
